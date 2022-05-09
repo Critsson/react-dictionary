@@ -6,6 +6,7 @@ import { ThemeProvider, createTheme } from "@mui/material"
 export default function App() {
 
     const [searchTerm, setSearchTerm] = React.useState("");
+    const [badSearch, setBadSearch] = React.useState(false);
     const [firstSearched, setFirstSearched] = React.useState(false);
     const [firstRender, setFirstRender] = React.useState(false);
     const [word, setWord] = React.useState({});
@@ -39,9 +40,11 @@ export default function App() {
         fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${searchTerm}`)
             .then(res => res.json())
             .then(data => {
-                if (data.title !== "No Definitions Found") { setWord(data[0]) }
-                else {
-                    setWord(false)
+                if (data.title !== "No Definitions Found") { 
+                    setWord(data[0]) 
+                    setBadSearch(false)
+                } else {
+                    setBadSearch(true)
                 }
             })
     }
@@ -52,7 +55,6 @@ export default function App() {
                 setFirstSearched(true)
             }
         }
-
         setFirstRender(true)
     }, [word])
 
@@ -63,11 +65,11 @@ export default function App() {
                 {firstSearched === false ?
                     <div className="landing-page-container">
                         <h1 className="title">Chris' Dictionary</h1>
-                        <Searchbar wordState={word} handleSearch={handleSearch} handleChange={handleSearchTermChange} />
+                        <Searchbar wordState={word} badSearch={badSearch} handleSearch={handleSearch} handleChange={handleSearchTermChange} />
                     </div>
                     :
                     <div className="definition-page-container">
-                        <DefinitionCard handleHomeClick={handleHomeClick} handleSearch={handleSearch} handleChange={handleSearchTermChange} word={word} />
+                        <DefinitionCard badSearch={badSearch} handleHomeClick={handleHomeClick} handleSearch={handleSearch} handleChange={handleSearchTermChange} word={word} />
                     </div>}
             </div>
         </ThemeProvider>

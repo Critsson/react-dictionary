@@ -5,7 +5,7 @@ import SearchIcon from '@mui/icons-material/Search';
 export default function Searchbar(props) {
     return (
         <>
-            {props.wordState === false ?
+            {props.badSearch === true ?
                 <TextField className="searchbar" error onKeyDown={(e) => {
                     if (e.keyCode === 13) {
                         props.handleSearch()

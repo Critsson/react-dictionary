@@ -50,7 +50,7 @@ export default function DefinitionCard(props) {
             <Grid item>
                 <Paper className="paper-container" style={{ height: "100%", width: "50em", marginTop: "72px", paddingBottom: "60px", marginBottom: "72px" }} elevation={24}>
                     <div className="searchbar-container">
-                        <Searchbar handleSearch={props.handleSearch} handleChange={props.handleChange} />
+                        <Searchbar badSearch={props.badSearch} handleSearch={props.handleSearch} handleChange={props.handleChange} />
                         <IconButton onClick={props.handleHomeClick}>
                             <HomeIcon sx={{ fontSize: 44 }} />
                         </IconButton>
